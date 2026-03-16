@@ -23,7 +23,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import (
     Qt, QThread, pyqtSignal, QTimer, QPropertyAnimation,
-    QEasingCurve, QSize, QPoint, QRect, pyqtProperty, QObject
+    QEasingCurve, QSize, QRect, pyqtProperty, QObject
 )
 from PyQt6.QtGui import (
     QFont, QColor, QPainter, QPen, QBrush, QLinearGradient,
@@ -318,7 +318,12 @@ class NeonButton(QPushButton):
 
         # Top highlight
         if self._glow > 0:
-            grad = QLinearGradient(r.topLeft(), QPoint(r.left(), r.top() + r.height() // 3))
+            grad = QLinearGradient(
+                float(r.left()),
+                float(r.top()),
+                float(r.left()),
+                float(r.top() + r.height() / 3)
+            )
             hi = QColor(255, 255, 255)
             hi.setAlphaF(0.07 * self._glow)
             grad.setColorAt(0, hi)
